@@ -104,30 +104,3 @@
  
  	if (hostapd_is_usable_chan(iface, iface->freq +
 
---- hostapd.sh.orig	2022-09-10 01:55:41.409228000 +0800
-+++ hostapd.sh	2022-09-10 16:32:39.349899173 +0800
-@@ -117,6 +117,7 @@
- 	config_add_int rssi_ignore_probe_request
- 	config_add_int maxassoc
- 	config_add_boolean vendor_vht
-+	config_add_boolean intel_lar
- 
- 	config_add_string acs_chan_bias
- 	config_add_array hostapd_options
-@@ -134,7 +135,7 @@
- 
- 	json_get_vars country country3 country_ie beacon_int:100 dtim_period:2 doth require_mode legacy_rates \
- 		acs_chan_bias local_pwr_constraint spectrum_mgmt_required airtime_mode cell_density \
--		rts_threshold beacon_rate rssi_reject_assoc_rssi rssi_ignore_probe_request maxassoc vendor_vht
-+		rts_threshold beacon_rate rssi_reject_assoc_rssi rssi_ignore_probe_request maxassoc vendor_vht intel_lar
- 
- 	hostapd_set_log_options base_cfg
- 
-@@ -216,6 +217,7 @@
- 				set_default rate_list "24000 36000 48000 54000"
- 				set_default basic_rate_list "24000"
- 			fi
-+			[ -n "$intel_lar" ] && append base_cfg "intel_lar=$intel_lar" "$N"
- 		;;
- 	esac
- 
